@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zihao Tang | Coastal and Hydraulic Engineering</title>
+  <meta name="description" content="Academic homepage of Zihao Tang, Research Fellow at the National University of Singapore. Research in coastal and hydraulic engineering, scour, sediment transport, CFD, morphodynamics and AI." />
+  <style>
+    :root {
+      --ink: #0f172a;
+      --text: #243447;
+      --muted: #64748b;
+      --line: #dbe4ee;
+      --paper: #ffffff;
+      --soft: #f5f8fb;
+      --ocean: #0f766e;
+      --deep: #164e63;
+      --blue: #2563eb;
+      --sand: #f3d98b;
+      --shadow: 0 22px 70px rgba(15, 23, 42, 0.12);
+      --card-shadow: 0 14px 36px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 4%, rgba(15, 118, 110, 0.12), transparent 28%),
+        radial-gradient(circle at 88% 0%, rgba(37, 99, 235, 0.10), transparent 30%),
+        var(--soft);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--ocean);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.88);
+      border-bottom: 1px solid rgba(219, 228, 238, 0.95);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 66px;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: 0.2px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: linear-gradient(135deg, var(--ocean), var(--deep));
+      box-shadow: 0 8px 24px rgba(15, 118, 110, 0.22);
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 16px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .nav-links a {
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 74px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(360px, 0.98fr);
+      gap: 44px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid rgba(15, 118, 110, 0.22);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--deep);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.24px;
+    }
+
+    .pulse {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--ocean);
+      box-shadow: 0 0 0 7px rgba(15, 118, 110, 0.12);
+    }
+
+    h1 {
+      margin: 20px 0 14px;
+      color: var(--ink);
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 0.98;
+      letter-spacing: -2.4px;
+    }
+
+    .hero-subtitle {
+      margin: 0 0 24px;
+      max-width: 690px;
+      color: #344256;
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.55;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+
+    .btn.primary {
+      color: white;
+      background: linear-gradient(135deg, var(--ocean), var(--deep));
+      box-shadow: 0 12px 26px rgba(15, 118, 110, 0.24);
+    }
+
+    .btn.secondary {
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.82);
+      border-color: var(--line);
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, #ffffff, #f7fbff);
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card h2 {
+      margin: 4px 0 10px;
+      color: var(--ink);
+      font-size: 22px;
+    }
+
+    .hero-card p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .mini-figure {
+      margin-top: 20px;
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #f8fcff;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 26px 0 4px;
+    }
+
+    .metric {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--ink);
+      font-size: 28px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    section {
+      margin: 34px 0;
+      padding: 34px;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: var(--card-shadow);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(26px, 3vw, 38px);
+      letter-spacing: -0.9px;
+      line-height: 1.08;
+    }
+
+    .section-head p {
+      max-width: 640px;
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 8px 11px;
+      color: var(--deep);
+      background: #e7f7f4;
+      border: 1px solid rgba(15, 118, 110, 0.18);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px;
+      min-height: 100%;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.045);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      color: var(--ink);
+      font-size: 20px;
+      line-height: 1.22;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .visual {
+      height: 168px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #eef9ff, #fff7dd);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: 0.6fr 1.4fr;
+      gap: 20px;
+      padding: 18px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .timeline:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .timeline .time {
+      color: var(--ocean);
+      font-weight: 900;
+    }
+
+    .timeline strong {
+      color: var(--ink);
+    }
+
+    .publication-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .publication {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 16px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: #ffffff;
+    }
+
+    .year {
+      display: grid;
+      place-items: center;
+      align-self: start;
+      min-height: 76px;
+      border-radius: 18px;
+      color: white;
+      background: linear-gradient(135deg, var(--ocean), var(--blue));
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .pub-title {
+      color: var(--ink);
+      font-weight: 900;
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    .pub-meta {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .pub-links {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .small-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #f8fafc;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .award-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .award {
+      padding: 18px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, #fffdf5, #ffffff);
+      border: 1px solid #eadfba;
+    }
+
+    .award .award-year {
+      color: #b45309;
+      font-weight: 900;
+      font-size: 22px;
+    }
+
+    .award p {
+      margin: 6px 0 0;
+      color: var(--muted);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .contact-card {
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      padding: 22px;
+    }
+
+    .contact-line {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 14px;
+      padding: 10px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-line:first-child {
+      border-top: 0;
+    }
+
+    .contact-line span {
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    footer {
+      padding: 28px 0 46px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metrics,
+      .cards,
+      .award-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .section-head {
+        display: block;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .wrap {
+        padding: 0 16px;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      section {
+        padding: 22px;
+        border-radius: 24px;
+      }
+
+      .metrics,
+      .cards,
+      .award-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .publication {
+        grid-template-columns: 1fr;
+      }
+
+      .year {
+        width: 92px;
+      }
+
+      .timeline {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .contact-line {
+        grid-template-columns: 1fr;
+        gap: 2px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#home">
+        <span class="brand-mark">ZT</span>
+        <span>Zihao Tang</span>
+      </a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#awards">Awards</a>
+        <a href="#cv">CV</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero" id="home">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow"><span class="pulse"></span> Research Fellow, National University of Singapore</div>
+        <h1>Coastal and Hydraulic Engineering for Safer Water Infrastructure</h1>
+        <p class="hero-subtitle">
+          I investigate scour, sediment transport, morphodynamics and coastal hazards by integrating laboratory experiments,
+          computational fluid dynamics and data driven modelling.
+        </p>
+        <div class="chip-row">
+          <span class="chip">Local scour</span>
+          <span class="chip">Sediment transport</span>
+          <span class="chip">OpenFOAM CFD</span>
+          <span class="chip">Morphodynamics</span>
+          <span class="chip">Machine learning</span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn primary" href="#publications">View publications</a>
+          <a class="btn secondary" href="TANG_Zihao_Academic_CV.pdf">Download CV</a>
+          <a class="btn secondary" href="mailto:z.tang@nus.edu.sg">Contact me</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h2>Research at the interface of flow, sediment and infrastructure</h2>
+        <p>
+          My work focuses on the stability of coastal and hydraulic structures under extreme hydrodynamic conditions,
+          with applications to offshore wind foundations, bridge scour, porous structures and coastal protection.
+        </p>
+        <div class="mini-figure" aria-label="Illustration of waves, monopile, bridge deck and sediment bed">
+          <svg viewBox="0 0 760 430" width="100%" height="100%" role="img">
+            <defs>
+              <linearGradient id="water" x1="0" x2="1">
+                <stop offset="0" stop-color="#b9edff"/>
+                <stop offset="1" stop-color="#7dd3fc"/>
+              </linearGradient>
+              <linearGradient id="bed" x1="0" x2="1">
+                <stop offset="0" stop-color="#f6d365"/>
+                <stop offset="1" stop-color="#f3b35f"/>
+              </linearGradient>
+              <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.16"/>
+              </filter>
+            </defs>
+            <rect width="760" height="430" fill="#f8fcff"/>
+            <path d="M0 150 C80 120 150 178 230 145 C310 112 372 172 455 143 C560 106 632 168 760 130 L760 280 L0 280 Z" fill="url(#water)" opacity="0.92"/>
+            <path d="M0 276 C85 260 140 316 230 300 C338 281 430 255 530 290 C626 324 684 304 760 286 L760 430 L0 430 Z" fill="url(#bed)"/>
+            <path d="M84 281 C158 259 216 331 303 306 C388 282 450 268 530 295" fill="none" stroke="#b7791f" stroke-width="5" opacity="0.5"/>
+            <rect x="118" y="92" width="220" height="30" rx="9" fill="#334155" filter="url(#softShadow)"/>
+            <rect x="154" y="122" width="18" height="140" fill="#64748b"/>
+            <rect x="282" y="122" width="18" height="150" fill="#64748b"/>
+            <rect x="452" y="80" width="50" height="222" rx="24" fill="#e2e8f0" stroke="#64748b" stroke-width="5" filter="url(#softShadow)"/>
+            <ellipse cx="477" cy="306" rx="122" ry="34" fill="#0f766e" opacity="0.18"/>
+            <circle cx="420" cy="305" r="6" fill="#0f766e"/>
+            <circle cx="452" cy="322" r="5" fill="#0f766e"/>
+            <circle cx="519" cy="324" r="5" fill="#0f766e"/>
+            <circle cx="552" cy="309" r="6" fill="#0f766e"/>
+            <path d="M70 190 C135 154 210 223 285 185 C365 144 430 220 514 183 C586 151 638 177 694 150" fill="none" stroke="#0f766e" stroke-width="8" stroke-linecap="round" opacity="0.78"/>
+            <path d="M84 208 C143 187 190 226 248 211" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+            <text x="42" y="58" font-size="20" fill="#0f172a" font-weight="700">Flood, wave and sediment processes</text>
+            <text x="472" y="48" font-size="16" fill="#0f766e" font-weight="700">CFD plus experiments plus AI</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap metrics">
+      <div class="metric">
+        <strong>10</strong>
+        <span>selected publications</span>
+      </div>
+      <div class="metric">
+        <strong>4</strong>
+        <span>core research areas</span>
+      </div>
+      <div class="metric">
+        <strong>2024</strong>
+        <span>NUS research fellow</span>
+      </div>
+      <div class="metric">
+        <strong>PhD</strong>
+        <span>Civil engineering</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="about">
+      <div class="section-head">
+        <div>
+          <h2>About</h2>
+          <p>Hydraulic experiments, CFD and AI for scour, sediment transport and coastal hazard mitigation.</p>
+        </div>
+      </div>
+      <p>
+        I am a Research Fellow at the National University of Singapore. My research addresses coastal and hydraulic
+        engineering problems involving local scour, sediment transport, turbulence, morphodynamics and infrastructure
+        stability. I am particularly interested in combining physically based modelling with laboratory measurements
+        and data driven methods to support safer and more sustainable coastal and water infrastructure.
+      </p>
+      <p>
+        My PhD research at the University of Auckland focused on scour countermeasures for offshore wind turbine
+        monopile foundations. My current work at NUS focuses on CFD modelling of coastal erosion and sediment transport.
+      </p>
+    </section>
+
+    <section id="research">
+      <div class="section-head">
+        <div>
+          <h2>Research interests</h2>
+          <p>Four connected themes define my current research portfolio.</p>
+        </div>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="visual">
+            <svg viewBox="0 0 480 260" width="100%" height="100%">
+              <rect width="480" height="260" fill="#ecfeff"/>
+              <path d="M0 96 C62 68 118 121 188 91 C265 58 326 119 410 83 C438 71 462 70 480 73 L480 156 L0 156 Z" fill="#7dd3fc"/>
+              <path d="M0 154 C78 139 144 187 236 172 C322 158 373 145 480 170 L480 260 L0 260 Z" fill="#f3d98b"/>
+              <rect x="222" y="48" width="36" height="155" rx="18" fill="#cbd5e1" stroke="#475569" stroke-width="4"/>
+              <ellipse cx="240" cy="203" rx="95" ry="26" fill="#0f766e" opacity="0.23"/>
+              <ellipse cx="240" cy="181" rx="80" ry="14" fill="none" stroke="#0f766e" stroke-width="8"/>
+              <text x="24" y="36" fill="#164e63" font-size="20" font-weight="800">Monopile scour protection</text>
+            </svg>
+          </div>
+          <h3>Scour countermeasures for offshore wind foundations</h3>
+          <p>Experimental and theoretical studies of collar protection, riprap armour, bed solidification and bio cemented beds for monopile foundations.</p>
+        </article>
+
+        <article class="card">
+          <div class="visual">
+            <svg viewBox="0 0 480 260" width="100%" height="100%">
+              <rect width="480" height="260" fill="#f8fafc"/>
+              <path d="M0 118 C80 95 156 145 238 113 C328 78 392 137 480 104 L480 178 L0 178 Z" fill="#93c5fd"/>
+              <path d="M0 176 C93 159 160 210 250 188 C330 168 390 166 480 190 L480 260 L0 260 Z" fill="#f3d98b"/>
+              <rect x="90" y="86" width="300" height="28" rx="8" fill="#334155"/>
+              <rect x="136" y="114" width="20" height="58" fill="#64748b"/>
+              <rect x="322" y="114" width="20" height="58" fill="#64748b"/>
+              <path d="M165 186 C195 158 250 158 285 187" fill="none" stroke="#b7791f" stroke-width="7"/>
+              <text x="24" y="36" fill="#1e40af" font-size="20" font-weight="800">Bridge pressure scour</text>
+            </svg>
+          </div>
+          <h3>Bridge inundation, pressure scour and hydrodynamic forces</h3>
+          <p>Flood induced bridge deck submergence, vertical contraction scour, uplift forces and prediction equations for engineering design.</p>
+        </article>
+
+        <article class="card">
+          <div class="visual">
+            <svg viewBox="0 0 480 260" width="100%" height="100%">
+              <rect width="480" height="260" fill="#f0fdfa"/>
+              <path d="M0 122 C70 90 130 158 205 124 C290 86 352 146 480 112 L480 170 L0 170 Z" fill="#67e8f9"/>
+              <path d="M0 170 C86 150 170 202 265 182 C342 166 405 176 480 194 L480 260 L0 260 Z" fill="#f3d98b"/>
+              <path d="M60 110 C140 128 170 90 250 112 C310 130 348 88 430 104" fill="none" stroke="#0f766e" stroke-width="8" stroke-linecap="round"/>
+              <circle cx="100" cy="178" r="6" fill="#0f766e"/>
+              <circle cx="148" cy="190" r="5" fill="#0f766e"/>
+              <circle cx="213" cy="171" r="6" fill="#0f766e"/>
+              <circle cx="330" cy="190" r="5" fill="#0f766e"/>
+              <text x="24" y="36" fill="#0f766e" font-size="20" font-weight="800">Sediment transport</text>
+            </svg>
+          </div>
+          <h3>CFD, turbulence closure and morphodynamic simulation</h3>
+          <p>Numerical modelling of hydrodynamics, turbulent sediment diffusion, suspended sediment and bed evolution using OpenFOAM based tools.</p>
+        </article>
+
+        <article class="card">
+          <div class="visual">
+            <svg viewBox="0 0 480 260" width="100%" height="100%">
+              <rect width="480" height="260" fill="#eff6ff"/>
+              <g fill="#2563eb" opacity="0.86">
+                <rect x="72" y="152" width="32" height="32" rx="8"/>
+                <rect x="116" y="126" width="32" height="32" rx="8"/>
+                <rect x="160" y="142" width="32" height="32" rx="8"/>
+                <rect x="204" y="102" width="32" height="32" rx="8"/>
+                <rect x="248" y="118" width="32" height="32" rx="8"/>
+                <rect x="292" y="80" width="32" height="32" rx="8"/>
+                <rect x="336" y="104" width="32" height="32" rx="8"/>
+              </g>
+              <path d="M88 168 L132 142 L176 158 L220 118 L264 134 L308 96 L352 120" fill="none" stroke="#0f766e" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="24" y="36" fill="#1e40af" font-size="20" font-weight="800">Data driven prediction</text>
+            </svg>
+          </div>
+          <h3>Machine learning for water hazards</h3>
+          <p>Data driven reconstruction and prediction for scour, streambed evolution and geophysical systems with sparse measurements.</p>
+        </article>
+
+        <article class="card">
+          <div class="visual">
+            <svg viewBox="0 0 480 260" width="100%" height="100%">
+              <rect width="480" height="260" fill="#f0fdf4"/>
+              <path d="M0 125 C74 92 140 154 216 119 C300 81 372 144 480 105 L480 172 L0 172 Z" fill="#7dd3fc"/>
+              <path d="M0 172 C78 152 162 205 250 181 C342 158 408 174 480 190 L480 260 L0 260 Z" fill="#f3d98b"/>
+              <path d="M105 172 C118 118 146 98 170 86 C158 124 164 153 176 172" fill="#15803d" opacity="0.75"/>
+              <path d="M220 173 C235 106 268 78 296 66 C278 122 286 154 300 173" fill="#16a34a" opacity="0.75"/>
+              <path d="M334 176 C345 126 373 99 400 86 C388 130 390 158 406 176" fill="#15803d" opacity="0.75"/>
+              <text x="24" y="36" fill="#166534" font-size="20" font-weight="800">Hybrid coastal protection</text>
+            </svg>
+          </div>
+          <h3>Nature based and hybrid coastal defence</h3>
+          <p>Wave attenuation, mangrove planter systems and engineering solutions that combine structural stability with ecological benefit.</p>
+        </article>
+
+        <article class="card">
+          <div class="visual">
+            <svg viewBox="0 0 480 260" width="100%" height="100%">
+              <rect width="480" height="260" fill="#f8fafc"/>
+              <path d="M0 136 C65 102 130 166 200 130 C284 86 350 150 480 116 L480 184 L0 184 Z" fill="#60a5fa"/>
+              <path d="M30 134 C110 88 176 165 257 119 C326 78 382 135 444 96" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" opacity="0.9"/>
+              <path d="M0 184 C88 160 164 218 260 194 C340 174 407 184 480 200 L480 260 L0 260 Z" fill="#f3d98b"/>
+              <polygon points="318,103 386,116 318,130" fill="#334155"/>
+              <circle cx="286" cy="116" r="16" fill="#334155"/>
+              <text x="24" y="36" fill="#1e40af" font-size="20" font-weight="800">Ship wave interaction</text>
+            </svg>
+          </div>
+          <h3>Ship waves and coastal sediment dynamics</h3>
+          <p>Wave structure and wave sediment interactions relevant to navigation, nearshore erosion and coastal infrastructure protection.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="publications">
+      <div class="section-head">
+        <div>
+          <h2>Selected publications</h2>
+          <p>Representative journal papers across scour, sediment transport, offshore wind protection, pressure scour and machine learning.</p>
+        </div>
+      </div>
+
+      <div class="publication-list">
+        <article class="publication">
+          <div class="year">2026</div>
+          <div>
+            <div class="pub-title">Numerical investigation of vertical contraction scour beneath solid and porous obstacles under steady current</div>
+            <div class="pub-meta">Tang, Z. and Li, Y. P. Coastal Engineering, 205, 104936.</div>
+            <div class="pub-links"><a class="small-link" href="https://doi.org/10.1016/j.coastaleng.2025.104936">DOI</a><span class="small-link">CFD</span><span class="small-link">Porous obstacles</span></div>
+          </div>
+        </article>
+
+        <article class="publication">
+          <div class="year">2026</div>
+          <div>
+            <div class="pub-title">Effects of flow intensity and vibration flow alignment angle on riprap protection around a vibrating monopile: An experimental study</div>
+            <div class="pub-meta">Tang, Z., Melville, B. W., Shamseldin, A. Y. and Guan, D. Ocean Engineering, 353, 124597.</div>
+            <div class="pub-links"><a class="small-link" href="https://doi.org/10.1016/j.oceaneng.2026.124597">DOI</a><span class="small-link">Riprap protection</span><span class="small-link">Vibrating monopile</span></div>
+          </div>
+        </article>
+
+        <article class="publication">
+          <div class="year">2026</div>
+          <div>
+            <div class="pub-title">Flood inundation induced bridge pressure scour: Developing new prediction equations and exploring machine learning methods</div>
+            <div class="pub-meta">Tang, Z., Yang, Y., Melville, B. W. and Xie, Y. Journal of Hydraulic Engineering, 152(3), 04026004.</div>
+            <div class="pub-links"><a class="small-link" href="https://doi.org/10.1061/JHEND8.HYENG-14675">DOI</a><span class="small-link">Bridge pressure scour</span><span class="small-link">XGBoost</span></div>
+          </div>
+        </article>
+
+        <article class="publication">
+          <div class="year">2025</div>
+          <div>
+            <div class="pub-title">Multi resolution reconstruction of longitudinal streambed footprints using embedded sparse convolutional autoencoders</div>
+            <div class="pub-meta">Yang, Y., Tang, Z., Shao, D. and Xu, Z. Journal of Hydrology, 654, 132852.</div>
+            <div class="pub-links"><a class="small-link" href="https://doi.org/10.1016/j.jhydrol.2025.132852">DOI</a><span class="small-link">Deep learning</span><span class="small-link">Streambed footprints</span></div>
+          </div>
+        </article>
+
+        <article class="publication">
+          <div class="year">2025</div>
+          <div>
+            <div class="pub-title">Performance of microbially induced calcite precipitation as a local scour countermeasure for offshore wind turbine monopile foundations</div>
+            <div class="pub-meta">Tang, Z., Melville, B. W., Singhal, N., Shamseldin, A. Y., Cheng, L. and Guan, D. International Journal of Sediment Research.</div>
+            <div class="pub-links"><a class="small-link" href="https://doi.org/10.1016/j.ijsrc.2025.05.003">DOI</a><span class="small-link">MICP</span><span class="small-link">Bio cementation</span></div>
+          </div>
+        </article>
+
+        <article class="publication">
+          <div class="year">2024</div>
+          <div>
+            <div class="pub-title">Experimental study of bed solidification method as local scour countermeasure for monopile foundations</div>
+            <div class="pub-meta">Tang, Z., Melville, B. W., Shamseldin, A. Y., Guan, D. and Singhal, N. Ocean Engineering, 299, 117369.</div>
+            <div class="pub-links"><a class="small-link" href="https://doi.org/10.1016/j.oceaneng.2024.117369">DOI</a><span class="small-link">Bed solidification</span><span class="small-link">Scour topography</span></div>
+          </div>
+        </article>
+
+        <article class="publication">
+          <div class="year">2023</div>
+          <div>
+            <div class="pub-title">Experimental study of collar protection for local scour reduction around offshore wind turbine monopile foundations</div>
+            <div class="pub-meta">Tang, Z., Melville, B. W., Shamseldin, A. Y., Guan, D., Singhal, N. and Yao, Z. Coastal Engineering, 183, 104324. Journal Top Cited Paper.</div>
+            <div class="pub-links"><a class="small-link" href="https://doi.org/10.1016/j.coastaleng.2023.104324">DOI</a><span class="small-link">Collar protection</span><span class="small-link">Top cited paper</span></div>
+          </div>
+        </article>
+
+        <article class="publication">
+          <div class="year">2023</div>
+          <div>
+            <div class="pub-title">Performance of riprap armouring at vibrating offshore wind turbine monopile foundations</div>
+            <div class="pub-meta">Tang, Z., Melville, B. W., Shamseldin, A. Y., Guan, D. and Singhal, N. Coastal Engineering, 186, 104392.</div>
+            <div class="pub-links"><a class="small-link" href="https://doi.org/10.1016/j.coastaleng.2023.104392">DOI</a><span class="small-link">Riprap armour</span><span class="small-link">Vibration</span></div>
+          </div>
+        </article>
+
+        <article class="publication">
+          <div class="year">2022</div>
+          <div>
+            <div class="pub-title">Hydrodynamic uplift forces on submerged bridge decks during bedform migration</div>
+            <div class="pub-meta">Tang, Z., Yang, Y., Melville, B. W., Whittaker, C. N., Shamseldin, A. Y. and Guan, D. Journal of Hydraulic Engineering, 148(9), 06022010.</div>
+            <div class="pub-links"><a class="small-link" href="https://doi.org/10.1061/(ASCE)HY.1943-7900.0002005">DOI</a><span class="small-link">Bridge decks</span><span class="small-link">Bedform migration</span></div>
+          </div>
+        </article>
+
+        <article class="publication">
+          <div class="year">2022</div>
+          <div>
+            <div class="pub-title">Countermeasures for local scour at offshore wind turbine monopile foundations: A review</div>
+            <div class="pub-meta">Tang, Z., Melville, B. W., Singhal, N., Shamseldin, A. Y., Zheng, J. H., Guan, D. and Cheng, L. Water Science and Engineering, 15(1), 15 to 28.</div>
+            <div class="pub-links"><a class="small-link" href="https://doi.org/10.1016/j.wse.2021.12.010">DOI</a><span class="small-link">Review</span><span class="small-link">Scour countermeasures</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="awards">
+      <div class="section-head">
+        <div>
+          <h2>Honours and awards</h2>
+          <p>Selected recognitions for research on scour countermeasures and hydraulic engineering.</p>
+        </div>
+      </div>
+      <div class="award-grid">
+        <div class="award">
+          <div class="award-year">2025</div>
+          <p>Coastal Engineering Top Cited Paper Award.</p>
+        </div>
+        <div class="award">
+          <div class="award-year">2025</div>
+          <p>Top 100 Excellent Scientific Journal Papers Award of Jiangsu Province.</p>
+        </div>
+        <div class="award">
+          <div class="award-year">2023</div>
+          <p>Best Poster Award, 1st IAHR International Workshop on Scour around Hydraulic and Coastal Structures.</p>
+        </div>
+        <div class="award">
+          <div class="award-year">2021</div>
+          <p>Best Journal Paper Award, Journal of Hohai University: Natural Sciences.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="cv">
+      <div class="section-head">
+        <div>
+          <h2>Academic profile</h2>
+          <p>Education, appointment, supervision and professional service.</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="time">Jul 2024 to present</div>
+        <div><strong>Research Fellow, National University of Singapore</strong><br />Research topic: CFD modelling of coastal erosion and sediment transport.</div>
+      </div>
+      <div class="timeline">
+        <div class="time">Oct 2019 to Feb 2024</div>
+        <div><strong>PhD in Civil Engineering, The University of Auckland</strong><br />Research topic: Scour countermeasures for offshore wind turbine monopile foundations.</div>
+      </div>
+      <div class="timeline">
+        <div class="time">Sep 2016 to Aug 2019</div>
+        <div><strong>Master of Engineering, Hohai University</strong><br />Coastal and Hydraulic Engineering.</div>
+      </div>
+      <div class="timeline">
+        <div class="time">Sep 2012 to Aug 2016</div>
+        <div><strong>Bachelor of Engineering, Harbin Engineering University</strong><br />Coastal and Hydraulic Engineering.</div>
+      </div>
+      <div class="timeline">
+        <div class="time">Teaching and supervision</div>
+        <div>Graduate teaching assistant for hydraulic engineering and water resources engineering; co supervisor of undergraduate and postgraduate research projects.</div>
+      </div>
+      <div class="timeline">
+        <div class="time">Service</div>
+        <div>Young Editorial Board Member of Advances in Bridge Engineering and peer reviewer for leading journals and international conferences.</div>
+      </div>
+
+      <div class="hero-actions">
+        <a class="btn primary" href="TANG_Zihao_Academic_CV.pdf">Download full CV</a>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-head">
+        <div>
+          <h2>Contact</h2>
+          <p>I welcome collaborations related to coastal engineering, hydraulic engineering, sediment transport, CFD and AI for water hazards.</p>
+        </div>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-line"><span>Email</span><a href="mailto:z.tang@nus.edu.sg">z.tang@nus.edu.sg</a></div>
+          <div class="contact-line"><span>Alternative</span><a href="mailto:ztan692@aucklanduni.ac.nz">ztan692@aucklanduni.ac.nz</a></div>
+          <div class="contact-line"><span>Affiliation</span><span>National University of Singapore</span></div>
+          <div class="contact-line"><span>Address</span><span>Engineering Drive 2, Singapore 117578</span></div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-line"><span>GitHub</span><a href="https://github.com/TANG3680">TANG3680</a></div>
+          <div class="contact-line"><span>ORCID</span><a href="https://orcid.org/0000-0001-5066-6095">0000 0001 5066 6095</a></div>
+          <div class="contact-line"><span>Profile</span><span>Coastal and Hydraulic Engineering; Scour; Sediment Transport; CFD and AI.</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Zihao Tang. Built with GitHub Pages.
+  </footer>
+</body>
+</html>
